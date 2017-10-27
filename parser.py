@@ -10,6 +10,7 @@
 
 import ply.yacc as yacc
 from lexer import Lexer
+from graphviz import Digraph
 
 class Tree:
 
@@ -312,6 +313,12 @@ if __name__ == '__main__':
     tree = Parser(f.read())
 
     printTreeTerminal(tree.ast)
+    
+    w = Digraph('G', filename='./Saidas/ArvoreRepr.gv')
+    printTreeText(tree.ast, w, i = 0)
+    w.view()
 
 
-    #printTreeText(tree.ast, w, i=0)
+    file_object = open("./Saidas/SaidaArvore.txt", "w")
+    file_object.write(w.source)
+    file_object.close()
